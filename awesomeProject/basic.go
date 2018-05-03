@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 )
 
 func main() {
@@ -10,7 +11,8 @@ func main() {
 	//i, s := testFunc(10, 20)
 	//fmt.Println("result is ",i,"status is ",s)
 	//testStruct()
-	testMethod()
+	//testMethod()
+	testSayHello()
 }
 
 func slice() {
@@ -66,12 +68,18 @@ func testMethod() {
 
 type Human struct {
 	name string
-	age  int
+	age  int64
 }
 
 type Person struct {
 	humen  Human
 	height float32
+}
+
+func (person Person) String() string {
+	str := strconv.FormatInt(person.humen.age, 10)
+	height := fmt.Sprintf("%0.1f", person.height)
+	return person.humen.name + str + height
 }
 
 func (human Human) sayHello() {
@@ -82,6 +90,20 @@ func (person Person) sayHello() {
 	fmt.Println("height:", person.height)
 }
 
-func testSayHello()  {
+type Men interface {
+	sing(song string)
+}
+
+func (person *Person) sing(song string) {
+	fmt.Println("the song is", song)
+}
+
+func testSayHello() {
 	var person Person
+	person.height = 10
+	person.humen.age = 22
+	person.humen.name = "xt"
+	person.sayHello()
+	person.sing("吻别")
+	fmt.Println(person.String())
 }
